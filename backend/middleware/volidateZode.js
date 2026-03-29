@@ -1,0 +1,19 @@
+export const validateZod = (schema) => (req, res, next) => {
+    const result = schema.safeParse(req.body);
+
+    if (!result.success) {
+        const formatted = result.error.format();
+
+        return res.status(400).json({
+            success: false,
+            message: "validation failed",
+            errors: Object.keys(formatted).map(field => ({
+                field,
+                message: formatted[field]?._errors?.[0] || 'invalid input'
+            }))
+        });
+    }
+
+    req.body = result.data;
+    next();
+}
