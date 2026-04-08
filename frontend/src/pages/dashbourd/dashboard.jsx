@@ -1,6 +1,11 @@
+// import DashboardHeader from '@/components/dashbourd/DashboardHeader'
+// import DashboardWelcome from '@/components/dashbourd/DashboardWelcome'
+// import TransactionForm from '@/components/transaction/TransactionForm'
+// import TransactionList from '@/components/transaction/TransactionList'
+
 import DashboardHeader from '@/components/dashbourd/DashboardHeader'
 import DashboardWelcome from '@/components/dashbourd/DashboardWelcome'
-import TransactionForm from '@/components/transaction/transactionForm'
+import TransactionForm from '@/components/transaction/TransactionForm'
 import TransactionList from '@/components/transaction/TransactionList'
 import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
