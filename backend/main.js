@@ -1,5 +1,11 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+
 dotenv.config();
 import express from 'express';
 import morgan from 'morgan';
@@ -9,7 +15,6 @@ import { handle } from './middleware/handle.js';
 import { notFound } from './middleware/notFound.js';
 import usersRoutes from "./routes/Users.js"
 import transactionRoutes from "./routes/transaction.js"
-// import userUploadRoutes from "./routes/uploud.js"
 import authRoutes from "./routes/Auth.js"
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./utils/swagger.js";
@@ -18,7 +23,7 @@ const port =process.env.PORT || 3000;
 const app = express();
 app.use(cors(
   {
-     origin: ["http://localhost:5173", "https://dugsiiye.com"]
+     origin: ["http://localhost:5173", "https://dugsiiye.com", "https://localhost:5173"]
   }
 ));
 app.use(limiter)
@@ -41,6 +46,22 @@ app.use("/api/auth", authRoutes)
 app.use("/api/health", (req, res) => {
   res.status(200).json({ status: "success", message: "API is healthy 😊" });
 })
+
+//server production
+
+if (process.env.NODE_ENV === "production") {
+
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+    app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+    // Serve the frontend app
+
+    app.get(/.*/, (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
+    })
+}
+
 app.use(notFound)
 app.use(handle);
 

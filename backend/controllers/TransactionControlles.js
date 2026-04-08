@@ -1,18 +1,20 @@
 import Transaction from "../modules/Transaction.js";
-
+import mongoose from "mongoose";
 // CREATE TRANSACTION
 export const createTransaction = async (req, res) => {
     try {
         console.log("BODY:", req.body);
 
-        const { amount, type, category, title, date } = req.body;
+        const { amount, type, category, title, date, description , status } = req.body;
 
         const transaction = await Transaction.create({
-            user: "699964d2947932791259b048", // ✅ fixed user
+            user: req.user._id,
             amount,
             type,
             category,
             title,
+            description,
+            status,
             date
         });
 
@@ -32,7 +34,7 @@ export const createTransaction = async (req, res) => {
 export const getTransactions = async (req, res) => {
     try {
         const transactions = await Transaction
-            .find({ user: "699964d2947932791259b048" }) // ✅ fixed
+            .find({ user: req.user._id}) // ✅ fixed
             .sort({ createdAt: -1 });
 
         res.status(200).json({
@@ -52,7 +54,7 @@ export const getTransaction = async (req, res) => {
     try {
         const transaction = await Transaction.findOne({
             _id: req.params.id,
-            user: "699964d2947932791259b048" // ✅ fixed
+            user: req.user._id // ✅ fixed
         });
 
         if (!transaction) {
@@ -79,7 +81,7 @@ export const getMonthlySummary = async (req, res) => {
         const summary = await Transaction.aggregate([
             {
                 $match: {
-                    user: new mongoose.Types.ObjectId("699964d2947932791259b048") // ✅ muhiim
+                    user: new mongoose.Types.ObjectId(req.user._id) // ✅ muhiim
                 }
             },
             {
@@ -107,7 +109,7 @@ export const updateTransaction = async (req, res) => {
         const transaction = await Transaction.findOneAndUpdate(
             {
                 _id: req.params.id,
-                user: "699964d2947932791259b048" // ✅ fixed
+                user: req.user._id // ✅ fixed
             },
             req.body,
             { new: true }
@@ -136,7 +138,7 @@ export const deleteTransaction = async (req, res) => {
     try {
         const transaction = await Transaction.findOneAndDelete({
             _id: req.params.id,
-            user: "699964d2947932791259b048" // ✅ fixed
+            user: req.user._id // ✅ fixed
         });
 
         if (!transaction) {
