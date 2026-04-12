@@ -6,7 +6,7 @@ import { Token } from "../utils/Token.js";
 //
 export const register = async (req, res, next) => {
   try {
-    let { name, email, password, role } = req.body;
+    let { name, email, password} = req.body;
 
     email = email.toLowerCase();
 
@@ -20,8 +20,8 @@ export const register = async (req, res, next) => {
     const newUser = await User.create({
       name,
       email,
-      password,
-      role,
+      password
+    
     });
 
     // generate token
@@ -34,7 +34,6 @@ export const register = async (req, res, next) => {
         id: newUser._id,
         name: newUser.name,
         email: newUser.email,
-        role: newUser.role,
       },
       token,
     });
@@ -115,7 +114,7 @@ export const login = async (req, res, next) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role
+       
       },
       token
     });

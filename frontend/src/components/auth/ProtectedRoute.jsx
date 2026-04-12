@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children }) => {
             const response = await api.get('/auth/me');
             return response.data
         },
-        retry: 1
+        retry: false
     })
 
     // error case
