@@ -109,9 +109,11 @@ const port = process.env.PORT || 3000;
 
 // 🌐 CORS
 app.use(cors({
-  origin: ["http://localhost:5173"]
+  origin: [
+    "http://localhost:5173",
+    "https://transactions-db-finance.onrender.com"
+  ]
 }));
-
 // 🔐 limiter only production
 if (process.env.NODE_ENV === "production") {
   app.use(limiter);
