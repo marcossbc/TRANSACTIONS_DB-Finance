@@ -97,7 +97,7 @@ const LoginForm = () => {
                                 <div className='p-3 bg-destructive/10 text-destructive text-sm rounded-md'>
                                     {error}
                                 </div>
-                            )
+                            )               
                         }
 
                         <div className='space-y-2'>
