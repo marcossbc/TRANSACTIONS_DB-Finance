@@ -10,7 +10,10 @@ export const tranSchema = z.object({
 
   category: z.string().min(1, "Category is required"),
   status: z.enum(["pending", "completed", "in progress"]),
-  description: z.string().max(200, "Description must be less than 200 characters"),
+  // description: z.string().max(200, "Description must be less than 200 characters"),
+  description: z.string()
+  .max(200, "Description must be less than 200 characters")
+  .optional(),
 
   date: z.coerce.date()
 });

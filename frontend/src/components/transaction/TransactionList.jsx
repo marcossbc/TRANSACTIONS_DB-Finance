@@ -11,10 +11,10 @@ const TransactionList = ({ transactions = [], onEdit }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
    
-    const filtered = transactions.filter(tran =>
-        tran.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (tran.description && tran.description.toLowerCase().includes(searchTerm.toLowerCase()))
-    )
+  const filtered = transactions.filter(tran =>
+  tran.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  tran.description?.toLowerCase().includes(searchTerm.toLowerCase())
+)
 
 
     const getStats = () => {

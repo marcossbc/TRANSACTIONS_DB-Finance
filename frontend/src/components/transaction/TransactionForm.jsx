@@ -130,7 +130,8 @@ const TransactionForm = ({ transaction, open = true, onOpenChange }) => {
     const data = {
       title: formValues.title,
       amount: Number(formValues.amount),
-      description: formValues.description || undefined,
+      // description: formValues.description || undefined,
+      description: formValues.description,
       status: formValues.status || "pending", 
       type: formValues.type,        
       category: formValues.category, 
